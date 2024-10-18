@@ -104,6 +104,7 @@ fun GameScreen(
         ) {
             val maxHeight = constraints.maxHeight
             val screenWidth = constraints.maxWidth * 0.3f
+            val tigerHeight = maxHeight * 0.1f
             LaunchedEffect(isMovingLeft, isMovingRight) {
                 while (isMovingLeft || isMovingRight) {
                     delay(16L)
@@ -192,7 +193,7 @@ fun GameScreen(
                 modifier = Modifier
                     .offset(
                         x = ninjaPosition.dp,
-                        y = (maxHeight * 0.2f).dp
+                        y = (tigerHeight).dp
                     )
                     .size(80.dp)
             ) {
@@ -290,7 +291,7 @@ fun GameScreen(
                     }
                     items = items.filter { item ->
                         val itemCollected =
-                            item.y > (maxHeight * 0.2f) && item.y < (maxHeight * 0.2f + 80) &&
+                            item.y > (tigerHeight) && item.y < (tigerHeight + 80) &&
                                     abs(item.x - ninjaPosition) < 50
                         val planetCollected = itemCollected && item.drawableRes == R.drawable.ic_bomb
                         if (planetCollected) {
