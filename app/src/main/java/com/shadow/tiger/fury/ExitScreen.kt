@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,10 +28,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shadow.tiger.fury.ui.theme.nujnoefont
 
+val mainActivity: MainActivity?
+    @Composable
+    get() {
+        return LocalContext.current as? MainActivity
+    }
 
 @Preview
 @Composable
-fun ExitScreen() {
+fun ExitScreen(onBack: () -> Unit = {}) {
+    val activity = mainActivity
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -52,21 +59,19 @@ fun ExitScreen() {
                     .padding(8.dp),
                 contentAlignment = Alignment.TopStart
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.homebutton),
+                Image(painter = painterResource(id = R.drawable.homebutton),
                     contentDescription = "Home Button",
                     modifier = Modifier
                         .size(55.dp)
                         .clickable {
-
-                        }
-                )
+                            onBack()
+                        })
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Image(
-                painter = painterResource(id = R.drawable.exitbutton2),
+                painter = painterResource(id = R.drawable.exitbutton),
                 contentDescription = "Exit Button",
                 modifier = Modifier
                     .padding(bottom = 16.dp)
@@ -83,33 +88,29 @@ fun ExitScreen() {
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(78.dp))
+            Spacer(modifier = Modifier.height(52.dp))
 
-            Row(
+            Column(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.yesbutton),
+                Image(painter = painterResource(id = R.drawable.yesbutton),
                     contentDescription = "Yes Button",
                     modifier = Modifier
                         .size(170.dp, 70.dp)
                         .clickable {
+                            activity?.finishAndRemoveTask()
+                        })
 
-                        }
-                )
+                Spacer(modifier = Modifier.height(16.dp))
 
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Image(
-                    painter = painterResource(id = R.drawable.nobutton),
+                Image(painter = painterResource(id = R.drawable.nobutton),
                     contentDescription = "No Button",
                     modifier = Modifier
                         .size(170.dp, 70.dp)
                         .clickable {
-
-                        }
-                )
+                            onBack()
+                        })
             }
         }
     }

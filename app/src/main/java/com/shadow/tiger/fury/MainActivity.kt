@@ -16,18 +16,36 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.shadow.tiger.fury.ui.theme.ShadowTigerFuryTheme
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        SoundManager.init(this)
+        Prefs.init(this)
         setContent {
             ShadowTigerFuryTheme {
-
+                val navController = rememberNavController()
+                SetupNavGraph(navController = navController)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        SoundManager.resumeMusic()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        SoundManager.pauseMusic()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SoundManager.onDestroy()
     }
 }
 

@@ -34,7 +34,9 @@ import com.shadow.tiger.fury.ui.theme.nujnoefont
 
 @Preview
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(onBack: () -> Unit = {}) {
+    var musicVolume by remember { mutableFloatStateOf(Prefs.musicVolume) }
+    var soundVolume by remember { mutableFloatStateOf(Prefs.soundVolume) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -62,7 +64,7 @@ fun SettingsScreen() {
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
-
+                            onBack()
                         }
                 )
             }
@@ -70,7 +72,7 @@ fun SettingsScreen() {
             Spacer(modifier = Modifier.height(16.dp))
 
             Image(
-                painter = painterResource(id = R.drawable.settingsbutton2),
+                painter = painterResource(id = R.drawable.settingsbutton),
                 contentDescription = "Settings Button",
                 modifier = Modifier
                     .padding(bottom = 16.dp)
@@ -85,19 +87,23 @@ fun SettingsScreen() {
             ) {
                 Column(
                     horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
                     modifier = Modifier.padding(start = 62.dp, top = 32.dp)
                 ) {
                     Text(
                         text = "music",
                         fontFamily = nujnoefont,
-                        fontSize = 24.sp,
-                        color = Color(0xFF632E2E)
+                        fontSize = 32.sp,
+                        color = Color(0xFF632E2E),
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
                     )
 
                     Slider(
-                        value = 0.5f,
-                        onValueChange = {},
+                        value = musicVolume,
+                        onValueChange = {
+                            musicVolume = it
+                        },
                         colors = SliderDefaults.colors(
                             thumbColor = Color.White,
                             activeTrackColor = Color.Yellow,
@@ -109,19 +115,24 @@ fun SettingsScreen() {
                     Text(
                         text = "sound",
                         fontFamily = nujnoefont,
-                        fontSize = 24.sp,
-                        color = Color(0xFF632E2E)
+                        fontSize = 32.sp,
+                        color = Color(0xFF632E2E),
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
                     )
 
                     Slider(
-                        value = 0.5f,
-                        onValueChange = {},
+                        value = soundVolume,
+                        onValueChange = {
+                            soundVolume = it
+                        },
                         colors = SliderDefaults.colors(
                             thumbColor = Color.White,
                             activeTrackColor = Color.Yellow,
                             inactiveTrackColor = Color.Gray
                         ),
                         modifier = Modifier.fillMaxWidth(0.7f)
+                                .align(Alignment.CenterHorizontally)
                     )
                 }
             }
@@ -134,7 +145,11 @@ fun SettingsScreen() {
                 modifier = Modifier
                     .size(170.dp, 50.dp)
                     .clickable {
-
+                        Prefs.musicVolume = musicVolume
+                        Prefs.soundVolume = soundVolume
+                        SoundManager.setSoundVolume()
+                        SoundManager.setMusicVolume()
+                        onBack()
                     }
             )
         }

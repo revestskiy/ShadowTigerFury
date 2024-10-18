@@ -5,16 +5,23 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -28,7 +35,11 @@ import com.shadow.tiger.fury.ui.theme.nujnoefont
 
 @Preview
 @Composable
-fun StatsScreen() {
+fun StatsScreen(
+    onBack: () -> Unit = {}
+) {
+    var stats by remember { mutableStateOf(Prefs.stats) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -56,7 +67,7 @@ fun StatsScreen() {
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
-
+                            onBack()
                         }
                 )
             }
@@ -74,10 +85,48 @@ fun StatsScreen() {
 
             Box(
                 modifier = Modifier
-                    .paint(painter = painterResource(id = R.drawable.statsbackground), contentScale = ContentScale.Fit)
-                    .size(340.dp, 440.dp)
+                    .paint(
+                        painter = painterResource(id = R.drawable.statsbackground),
+                        contentScale = ContentScale.Fit
+                    )
+                    .fillMaxWidth()
+                    .height(440.dp)
             ) {
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.Center)
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    stats.forEach {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(0.85f),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                        ) {
+                            Text(
+                                text = it.num.toString() + ".",
+                                fontFamily = nujnoefont,
+                                fontSize = 27.sp,
+                                color = Color(0xFF632E2E)
+                            )
 
+                            Text(
+                                text = it.date,
+                                fontFamily = nujnoefont,
+                                fontSize = 24.sp,
+                                color = Color(0xFF632E2E)
+                            )
+
+                            Text(
+                                text = it.score.toString(),
+                                fontFamily = nujnoefont,
+                                fontSize = 24.sp,
+                                color = Color(0xFF632E2E)
+                            )
+                        }
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -88,7 +137,8 @@ fun StatsScreen() {
                 modifier = Modifier
                     .size(175.dp, 50.dp)
                     .clickable {
-
+                        Prefs.clearStats()
+                        stats = Prefs.stats
                     }
             )
         }

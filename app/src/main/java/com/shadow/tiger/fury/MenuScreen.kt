@@ -21,10 +21,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
 @Preview
 @Composable
-fun MenuScreen() {
+fun MenuScreen(
+    onPlay: () -> Unit = {},
+    onSettings: () -> Unit = {},
+    onStats: () -> Unit = {},
+    onExit: () -> Unit = {}
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -46,19 +50,17 @@ fun MenuScreen() {
                 painter = painterResource(id = R.drawable.nadpis),
                 contentDescription = "Title",
                 modifier = Modifier
-                    .padding(bottom = 32.dp)
-                    .size(350.dp, 180.dp)
+                    .padding(32.dp)
+                    .size(240.dp, 180.dp)
             )
-
-            Spacer(modifier = Modifier.height(22.dp))
 
             Image(
                 painter = painterResource(id = R.drawable.playbutton),
                 contentDescription = "Play Button",
                 modifier = Modifier
-                    .size(width = 250.dp, height = 100.dp)
+                    .size(width = 250.dp, height = 80.dp)
                     .clickable {
-
+                        onPlay()
                     }
             )
             Spacer(modifier = Modifier.height(22.dp))
@@ -67,9 +69,9 @@ fun MenuScreen() {
                 painter = painterResource(id = R.drawable.statsbutton),
                 contentDescription = "Settings Button",
                 modifier = Modifier
-                    .size(width = 250.dp, height = 100.dp)
+                    .size(width = 250.dp, height = 80.dp)
                     .clickable {
-
+                        onStats()
                     }
             )
 
@@ -79,9 +81,9 @@ fun MenuScreen() {
                 painter = painterResource(id = R.drawable.settingsbutton),
                 contentDescription = "Settings Button",
                 modifier = Modifier
-                    .size(width = 250.dp, height = 100.dp)
+                    .size(width = 250.dp, height = 80.dp)
                     .clickable {
-
+                        onSettings()
                     }
             )
 
@@ -91,9 +93,9 @@ fun MenuScreen() {
                 painter = painterResource(id = R.drawable.exitbutton),
                 contentDescription = "Exit Button",
                 modifier = Modifier
-                    .size(width = 250.dp, height = 100.dp)
+                    .size(width = 250.dp, height = 80.dp)
                     .clickable {
-
+                        onExit()
                     }
             )
         }
