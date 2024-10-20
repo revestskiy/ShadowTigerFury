@@ -1,4 +1,4 @@
-package com.shadow.tiger.fury
+package com.shadows.tigers.fury
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

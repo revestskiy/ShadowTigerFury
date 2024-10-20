@@ -1,4 +1,4 @@
-package com.shadow.tiger.fury
+package com.shadows.tigers.fury
 
 import android.content.Context
 import android.media.MediaPlayer

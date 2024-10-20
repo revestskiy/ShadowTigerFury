@@ -1,4 +1,4 @@
-package com.shadow.tiger.fury.ui.theme
+package com.shadows.tigers.fury.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

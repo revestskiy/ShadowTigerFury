@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.shadow.tiger.fury"
+    namespace = "com.shadows.tigers.fury"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.shadow.tiger.fury"
+        applicationId = "com.shadows.tigers.fury"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -31,9 +31,9 @@ android {
     }
     buildTypes {
         release {
-            isMinifyEnabled = true
-            multiDexEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            multiDexEnabled = false
+            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

@@ -1,4 +1,4 @@
-package com.shadow.tiger.fury
+package com.shadows.tigers.fury
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
@@ -35,7 +35,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.shadow.tiger.fury.ui.theme.nujnoefont
+import com.shadows.tigers.fury.ui.theme.nujnoefont
 import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Locale
